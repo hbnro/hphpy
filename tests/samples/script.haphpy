@@ -1,10 +1,17 @@
 <?php
 
-class Test
+require 'haphpy/vendor/autoload.php'
 
-  static function items
-    return [:symbol => 'string',
-            'other' => 'value',
-            'so']
+if ! in_array('haphpy', stream_get_wrappers())
+  stream_wrapper_register('haphpy', '\\Haphpy\\Module')
 
-echo Test::items()[:symbol]
+
+foreach explode(' ', 'ns try class traits function lambda') as $one
+  require "haphpy://tests/samples/$one.haphpy"
+
+
+echo $baz(Test::items()[:symbol])
+
+echo $buzz(hello())
+
+var_dump($foo())

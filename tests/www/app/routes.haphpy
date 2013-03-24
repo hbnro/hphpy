@@ -1,0 +1,18 @@
+<?php
+
+if array_key_exists('quit', $_GET)
+
+  logout()
+
+
+route('GET', '/', ~>
+
+  if is_logged()
+    echo 'Hi, ', ucfirst(cookie(:name)), '. <a href="?quit">Clear cookies?</a>'
+  else
+    echo 'Hello there?<br>Try: /hello/&lt;name&gt;'
+
+
+route('GET', '/hello/@name', ~>
+
+  login(params(:name))

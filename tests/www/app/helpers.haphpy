@@ -1,0 +1,17 @@
+<?php
+
+function login $id
+
+  cookie(:name, $id)
+  redirect()
+
+
+function logout
+
+  cookie(:name, null)
+  redirect()
+
+
+function is_logged
+
+  return !! cookie(:name)

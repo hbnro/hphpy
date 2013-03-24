@@ -1,0 +1,35 @@
+<?php
+
+namespace Base
+
+  class Registry
+
+    private static $bag = []
+
+    static function set $item, $value
+
+      static::$bag[$item] = $value
+
+    static function get $item, $default = FALSE
+
+      return isset(static::$bag[$item]) ? static::$bag[$item] : $default
+
+
+  class Request
+
+    static function env $key, $default = FALSE
+
+      return ! empty($_SERVER[$key]) ? $_SERVER[$key] : $default
+
+
+    static function value $key, $default = FALSE
+
+      return static::fetch($_POST, $key, static::fetch($_GET, $key, $default))
+
+
+    private static function fetch array $test, $key, $default = FALSE
+
+      $key = strtr($key, array('[' => '.', ']' => ''))
+      $set = join("']['", explode('.', $key))
+
+      return @eval("return isset(\$test['$set']) ? \$test['$set'] : \$default;")

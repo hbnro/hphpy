@@ -1,0 +1,13 @@
+<?php
+
+function cookie $item, $value = null
+
+  if func_num_args() === 1
+    return isset($_COOKIE[$item]) ? $_COOKIE[$item] : false
+  else
+    setcookie($item, $value, $value === null ? -1 : time() + 3600, '/')
+
+
+function params $key
+
+  return Base\Request::value($key)

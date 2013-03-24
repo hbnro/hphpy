@@ -1,0 +1,11 @@
+<?php
+
+try
+
+  $foo = new stdClass
+
+  try
+
+  catch Exception $E
+
+catch Exception $e

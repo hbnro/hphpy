@@ -1,0 +1,9 @@
+<?php
+
+$baz = ($bar) ~> return $bar
+
+$buzz = ($candy) ~>
+
+  return $candy
+
+$foo = ~>

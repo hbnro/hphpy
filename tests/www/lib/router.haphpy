@@ -1,0 +1,46 @@
+<?php
+
+function redirect $to = '/'
+
+  header("Location: $to")
+  exit
+
+
+function route $method, $path, $fn
+
+  $set = Base\Registry::get($method) ?: []
+
+  $set[$path] = $fn
+
+  Base\Registry::set($method, $set)
+
+
+function run
+
+  $method = Base\Request::env('REQUEST_METHOD')
+  $path = Base\Request::env('REQUEST_URI')
+  $set = Base\Registry::get($method)
+
+  if isset($set[$path])
+    $set[$path]()
+  else
+    $found = false
+
+    foreach $set as $sub => $fn
+      $regex = preg_replace('/@(\w+)/', '(?<\\1>[^/]+)', $sub)
+
+      if preg_match("(^$regex$)", $path, $match)
+
+        foreach $match as $k => $v
+          is_numeric($k) or $_GET[$k] = $v
+
+        $found = $fn
+        break
+
+    if $found
+      $found()
+    else
+      echo 'Not found!'
+
+
+$set = Base\Registry::get($method) ?: []
