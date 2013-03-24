@@ -10,7 +10,6 @@ class Module
   protected $offset = 0;
   protected $buffer = '';
 
-
   public function stream_open($path, $mode, $options, &$opened_path)
   {
     $path = str_replace('hphpy://', '', $path);
@@ -18,6 +17,7 @@ class Module
 
     if ($this->buffer === FALSE) {
       $this->stat = stat($path);
+
       return FALSE;
     }
 
@@ -40,6 +40,7 @@ class Module
   {
     $ret = substr($this->buffer, $this->offset, $count);
     $this->offset += strlen($ret);
+
     return $ret;
   }
 
@@ -64,6 +65,7 @@ class Module
       case SEEK_SET;
         if ($offset < strlen($this->buffer) && $offset >= 0) {
           $this->offset = $offset;
+
           return true;
         } else {
           return false;
@@ -72,6 +74,7 @@ class Module
       case SEEK_CUR;
         if ($offset >= 0) {
           $this->offset += $offset;
+
           return true;
         } else {
           return false;
@@ -80,12 +83,14 @@ class Module
       case SEEK_END;
         if (strlen($this->buffer) + $offset >= 0) {
           $this->offset = strlen($this->buffer) + $offset;
+
           return true;
         } else {
           return false;
         }
 
       default;
+
         return false;
     }
   }

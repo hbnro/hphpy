@@ -17,8 +17,6 @@ class Helpers
                     '/(?<!:):([_a-zA-Z][\w-]+)/' => "'\\1'",
                   );
 
-
-
   public static function escape($text, $rev = FALSE)
   {
     return strtr($text, $rev ? array_flip(static::$qt) : static::$qt);

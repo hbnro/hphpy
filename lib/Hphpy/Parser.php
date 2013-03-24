@@ -18,8 +18,6 @@ class Parser
                     "/\s*\\\\ *\n+\s*/" => ' ',
                   );
 
-
-
   public static function parse($source)
   {
     $tokens = static::tree($source);
@@ -30,7 +28,6 @@ class Parser
     return $output;
   }
 
-
   private static function tree($source)
   {
     $source = preg_replace(array_keys(static::$esc), static::$esc, $source);
@@ -39,7 +36,6 @@ class Parser
       static::$indent = strlen($match[0]);
     }
 
-
     $code  = '';
     $stack = array();
     $lines = explode("\n", $source);
@@ -47,13 +43,11 @@ class Parser
 
     $unescape = '\\Hphpy\\Helpers::unescape';
 
-
     foreach ($lines as $i => $line) {
       $key    = '$out';
       $tab    = strlen($line) - strlen(ltrim($line));
       $next   = isset($lines[$i + 1]) ? $lines[$i + 1] : NULL;
       $indent = strlen($next) - strlen(ltrim($next));
-
 
       if ($indent > $tab) {
         $stack []= substr(mt_rand(), 0, 7);
@@ -80,7 +74,6 @@ class Parser
       $code .= ";\n";
     }
 
-
     @eval($code);
 
     if (empty($out)) {
@@ -98,11 +91,9 @@ class Parser
     $block  = '/^\s*' . static::$block . '/i';
     $ifthen  = '/^\s*' . static::$ifthen . '/i';
 
-
     if ( ! is_scalar($value)) {
       return $value;
     }
-
 
     if (preg_match($isfn, $value, $test)) {
       $parts   = explode(' ', $test[0]);
@@ -135,11 +126,9 @@ class Parser
     $block  = '/^\s*(?:' . static::$ifthen . '|' . static::$block . '|' . static::$isfn . ')/i';
     $lambda = '/' . static::$lambda . '/i';
 
-
     if ( ! is_scalar($value)) {
       return;
     }
-
 
     if (preg_match($lambda, $value)) {
       $lft = substr_count($value, '(');
