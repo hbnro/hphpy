@@ -5,9 +5,18 @@ $bar =>
 
 
 $foo =>
-  :candy => 'bar'
+  :candy => ['bar']
   :does => 'nothing:else'
 
 $foo =>
 
   'candy' => 'bar'
+
+
+[$foo] => $foo[:candy]
+
+[$a, $b] => [1, 2]
+
+[$user, $name] =>
+  'pateke'
+  "Ek' Lamat"

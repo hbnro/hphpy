@@ -5,7 +5,7 @@ if ! in_array('hphpy', stream_get_wrappers())
   stream_wrapper_register('hphpy', '\\Hphpy\\Module')
 
 
-foreach explode(' ', 'ns try class traits function lambda arrays assigns comments constants return strings tree') as $one
+foreach explode(' ', 'ns try class traits function lambda arrays comments constants return strings tree') as $one
   $path = "hphpy://tests/samples/$one.hphpy"
   require $path
 
