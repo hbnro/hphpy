@@ -1,6 +1,6 @@
 <?php
 
-namespace Haphpy;
+namespace Hphpy;
 
 class Parser
 {
@@ -25,7 +25,7 @@ class Parser
     $tokens = static::tree($source);
     $output = static::fix($tokens);
 
-    $output = \Haphpy\Helpers::repare($output);
+    $output = \Hphpy\Helpers::repare($output);
 
     return $output;
   }
@@ -45,7 +45,7 @@ class Parser
     $lines = explode("\n", $source);
     $lines = array_values(array_filter(array_map('rtrim', $lines), 'strlen'));
 
-    $unescape = '\\Haphpy\\Helpers::unescape';
+    $unescape = '\\Hphpy\\Helpers::unescape';
 
 
     foreach ($lines as $i => $line) {
@@ -74,7 +74,7 @@ class Parser
 
       $code .= $key;
 
-      $line  = \Haphpy\Helpers::escape($line);
+      $line  = \Hphpy\Helpers::escape($line);
 
       $code .= $indent > $tab ? "=array(-1=>$unescape('$line'))" : "[]=$unescape('$line')";
       $code .= ";\n";

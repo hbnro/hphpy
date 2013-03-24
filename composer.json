@@ -1,5 +1,5 @@
 {
-  "name": "habanero/haphpy",
+  "name": "habanero/hphpy",
   "description": "Sugar for the php crowd!",
   "authors": [{
     "name":"Alvaro Cabrera"
@@ -8,6 +8,6 @@
     "php": ">=5.3"
   },
   "autoload": {
-    "psr-0": {"Haphpy": "lib/"}
+    "psr-0": {"Hphpy": "lib/"}
   }
 }

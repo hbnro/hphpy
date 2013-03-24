@@ -2,16 +2,16 @@
 
 require dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 
-if (! in_array('haphpy', stream_get_wrappers())) {
-  stream_wrapper_register('haphpy', '\\Haphpy\\Module');
+if (! in_array('hphpy', stream_get_wrappers())) {
+  stream_wrapper_register('hphpy', '\\Hphpy\\Module');
 }
 
-require 'haphpy://lib/base.haphpy';
-require 'haphpy://lib/router.haphpy';
-require 'haphpy://lib/session.haphpy';
+require 'hphpy://lib/base.hphpy';
+require 'hphpy://lib/router.hphpy';
+require 'hphpy://lib/session.hphpy';
 
-require 'haphpy://app/helpers.haphpy';
-require 'haphpy://app/routes.haphpy';
+require 'hphpy://app/helpers.hphpy';
+require 'hphpy://app/routes.hphpy';
 
 session_start();
 run();

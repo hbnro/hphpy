@@ -1,6 +1,6 @@
 <?php
 
-namespace Haphpy;
+namespace Hphpy;
 
 class Helpers
 {

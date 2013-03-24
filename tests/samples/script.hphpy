@@ -1,0 +1,17 @@
+<?php
+
+require 'hphpy/vendor/autoload.php'
+
+if ! in_array('hphpy', stream_get_wrappers())
+  stream_wrapper_register('hphpy', '\\Hphpy\\Module')
+
+
+foreach explode(' ', 'ns try class traits function lambda') as $one
+  require "hphpy://tests/samples/$one.hphpy"
+
+
+echo $baz(Test::items()[:symbol])
+
+echo $buzz(hello())
+
+var_dump($foo())

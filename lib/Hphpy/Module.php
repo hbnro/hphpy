@@ -1,6 +1,6 @@
 <?php
 
-namespace Haphpy;
+namespace Hphpy;
 
 class Module
 {
@@ -13,7 +13,7 @@ class Module
 
   public function stream_open($path, $mode, $options, &$opened_path)
   {
-    $path = str_replace('haphpy://', '', $path);
+    $path = str_replace('hphpy://', '', $path);
     $this->buffer = file_get_contents($path);
 
     if ($this->buffer === FALSE) {
@@ -24,7 +24,7 @@ class Module
     $this->buffer = preg_replace('/^\s*<\?php\s*$/', '<' . '?php;', $this->buffer);
     $this->buffer = preg_replace('/\<\?\=/', '<' . '?php echo ',  $this->buffer);
 
-    $this->buffer = \Haphpy\Parser::parse($this->buffer);
+    $this->buffer = \Hphpy\Parser::parse($this->buffer);
 
     $this->stat = stat($path);
 
