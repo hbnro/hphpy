@@ -169,7 +169,7 @@ class Parser
       }
 
       $out []= static::fix($sub, $indent + 1);
-    } else {
+    } elseif ($tree) {
       foreach ($tree as $key => $value) {
         if (is_string($value)) {
           ($overwrite = static::lambda($value, TRUE)) && $value = $overwrite;
