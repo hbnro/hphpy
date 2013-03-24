@@ -15,10 +15,26 @@ Adds some sugar for convenience, while it leaves,
 within possible, the php code intact.
 
 
+Features
+--------
+
+ * Break long-lines and params
+ * Hard strings for Heredoc/Newdoc
+ * Smart CONSTANT definitions
+ * Destructuring assignment
+ * Weak-scope lambdas
+ * Block comments
+
+
 Known issues
 ------------
 
- * Experimental phase
- * Symbols are not tokens
- * Incomplete closure handling
- * More tests for accurating issues
+ * Currently on design and experimental phase, take care
+ * Implicit return statement, parenthesis and braces where as possible
+ * Weak symbol-as-string implementation using RegExp
+
+
+Acknowledgments
+---------------
+
+Strongly inspired by Ruby, Python and CoffeeScript due its brevity, readability and expressiveness respectively.
