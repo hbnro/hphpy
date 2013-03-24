@@ -25,7 +25,7 @@ class Parser
     $output = \Hphpy\Helpers::restore($output, $tmp);
     $output = \Hphpy\Helpers::repare($output);
 
-    return $output;
+    return "$output\n";
   }
 
   private static function tree($source)
@@ -151,6 +151,8 @@ class Parser
 
       $sub[$tree[-1]] = array_slice($tree, 1);
 
+      static::ret($sub[$tree[-1]]);
+
       if ($suffix = static::close($tree[-1])) {
         $sub[$tree[-1]] []= $span . $suffix;
       }
@@ -175,9 +177,18 @@ class Parser
         } else {
           if (substr($key, -2) === '=>') {
             $value = array_map('trim', \Hphpy\Helpers::flatten($value));
-            $value = join(', ', array_filter($value, 'strlen'));
+            $value = array_filter($value, 'strlen');
+
+            $last = array_pop($value);
+
+            if (strpos($last, 'return') === 0) {
+              $last = trim(substr($last, 6));
+            }
+
+            $value []= $last;
 
             $key   = trim(substr($key, 0, -2));
+            $value = join(', ', $value);
 
             $out []= "$key = [$value];";
           } else {
@@ -203,6 +214,21 @@ class Parser
     ($text = trim($text)) && $out []= $span . $text;
 
     return join("\n", $out);
+  }
+
+  private static function ret(&$set, $indent = 0)
+  {
+    if (is_array(end($set))) {
+      return;
+    }
+
+    $last = array_pop($set);
+
+    if (preg_match('/^\s*[$\'"[:]/', $last)) {
+      $last = static::span($indent + 1) . 'return ' . trim($last);
+    }
+
+    $set []= $last;
   }
 
   private static function span($indent = 0)

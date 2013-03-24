@@ -21,10 +21,10 @@ class Module
       return FALSE;
     }
 
-    $this->buffer = preg_replace('/^\s*<\?php\s*$/', '<' . '?php;', $this->buffer);
+    $this->buffer = preg_replace('/^\s*<\?(?:php)?\s*$/', '<' . '?php', $this->buffer);
     $this->buffer = preg_replace('/\<\?\=/', '<' . '?php echo ',  $this->buffer);
 
-    $this->buffer = \Hphpy\Parser::parse($this->buffer);
+    $this->buffer = '<' . "?php\n" . \Hphpy\Parser::parse($this->buffer);
 
     $this->stat = stat($path);
 
