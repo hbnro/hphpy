@@ -176,20 +176,7 @@ class Parser
           $out []= static::ln($value . $close, '', $indent);
         } else {
           if (substr($key, -2) === '=>') {
-            $value = array_map('trim', \Hphpy\Helpers::flatten($value));
-            $value = array_filter($value, 'strlen');
-
-            $last = array_pop($value);
-
-            if (strpos($last, 'return') === 0) {
-              $last = trim(substr($last, 6));
-            }
-
-            $value []= $last;
-
-            $key   = trim(substr($key, 0, -2));
-            $value = join(', ', $value);
-
+            list($key, $value) = static::dict($key, $value);
             $out []= "$key = [$value];";
           } else {
             ($overwrite = static::lambda($key)) && $key = $overwrite;
@@ -229,6 +216,22 @@ class Parser
     }
 
     $set []= $last;
+  }
+
+  private static function dict($key, array $value)
+  {
+    $value = array_map('trim', \Hphpy\Helpers::flatten($value));
+    $value = array_filter($value, 'strlen');
+
+    $last = array_pop($value);
+
+    if (strpos($last, 'return') === 0) {
+      $last = trim(substr($last, 6));
+    }
+
+    $value []= $last;
+
+    return array(trim(substr($key, 0, -2)), join(', ', $value));
   }
 
   private static function span($indent = 0)
