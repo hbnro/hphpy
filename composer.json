@@ -1,0 +1,13 @@
+{
+  "name": "habanero/haphpy",
+  "description": "Sugar for the php crowd!",
+  "authors": [{
+    "name":"Alvaro Cabrera"
+  }],
+  "require": {
+    "php": ">=5.4"
+  },
+  "autoload": {
+    "psr-0": {"Haphpy": "lib/"}
+  }
+}
