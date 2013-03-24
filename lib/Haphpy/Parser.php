@@ -225,10 +225,15 @@ class Parser
       $function .= " extract(\$__, EXTR_SKIP | EXTR_REFS); unset(\$__);";
 
       if ($inline) {
+        $lft = substr_count($value, '(');
+        $rgt = substr_count($value, ')');
+
+        $close = str_repeat(')', $lft - $rgt);
+
         $suffix = trim($test[2]);
         $suffix = $suffix ? " $suffix;" : '';
 
-        return "$prefix $function$suffix } : false";
+        return "$prefix $function$suffix } : false$close";
       } else {
         return "$prefix $function";
       }
