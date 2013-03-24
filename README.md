@@ -13,3 +13,12 @@ and that's it.
 
 Adds some sugar for convenience, while it leaves,
 within possible, the php code intact.
+
+
+Known issues
+------------
+
+ * Experimental phase
+ * Symbols are not tokens
+ * Incomplete closure handling
+ * More tests for accurating issues
