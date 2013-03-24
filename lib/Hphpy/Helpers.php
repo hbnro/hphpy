@@ -16,7 +16,7 @@ class Helpers
                     '/^\s*([_A-Z][A-Z\d_]+)\s*=\s*([^;]+?)(?=\s*;)/m' => "defined('\\1') || define('\\1', \\2)",
                     '/(?<![:\w]):([_a-zA-Z][\w-]*)(?=\s*(?:[,)\]]|=>))/' => "'\\1'",
                     '/^\s*\[([^;=]+)\]\s*=>?\s*(.+?);?$/m' => '@list(\\1) = \\2;',
-                    '/^\s*\}\s*(catch|else|finally)/m' => '} \\1',
+                    '/\}\s*(catch|else|finally)/m' => '} \\1',
                   );
 
   private static $esc = array(
