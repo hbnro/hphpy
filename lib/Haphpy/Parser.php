@@ -9,7 +9,7 @@ class Parser
 
   private static $lambda = '\s*(?:\(([^()]*?)\))?\s*~>(.*)?';
   private static $ifthen = '\b(?:(?:else\s*?)?if|while|switch|for(?:each)?|catch)\b';
-  private static $block = '\b(?:else|class|do|try|namespace)\b';
+  private static $block = '\b(?:else|trait|interface|class|do|try|namespace)\b';
   private static $isfn = '\b(?:[\s\w]*function)\b';
 
   private static $esc = array(
@@ -175,7 +175,15 @@ class Parser
           ($overwrite = static::lambda($value, TRUE)) && $value = $overwrite;
           ($overwrite = static::open($value)) && $value = $overwrite;
 
-          $close = preg_match('/^\s*(?:\$[_a-zA-Z]|\w)/', $value) ? ';' : '';
+          $close = '';
+
+          if (substr($value, -1) === '{') {
+            $value = "$value }";
+            $close = '';
+          } elseif (preg_match('/^\s*(?:\$[_a-zA-Z]|\w)/', $value)) {
+            $close = ';';
+          }
+
           $out []= static::ln($value . $close, '', $indent);
         } else {
           ($overwrite = static::lambda($key)) && $key = $overwrite;
@@ -213,12 +221,14 @@ class Parser
     if (preg_match($closure, $value, $test)) {
       @list($prefix, $suffix) = explode($test[0], $value);
 
-      $function  = "!! (\$__ = get_defined_vars()) ? function ($test[1]) use (\$__) {";
+      $function  = "!! (\$__ = get_defined_vars()) | 1 ? function ($test[1]) use (\$__) {";
       $function .= " extract(\$__, EXTR_SKIP | EXTR_REFS); unset(\$__);";
 
       if ($inline) {
         $suffix = trim($test[2]);
-        return "$prefix $function $suffix; } : false";
+        $suffix = $suffix ? " $suffix;" : '';
+
+        return "$prefix $function$suffix } : false";
       } else {
         return "$prefix $function";
       }

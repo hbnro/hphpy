@@ -13,7 +13,7 @@ class Helpers
                   );
 
   private static $fix = array(
-                    '/\}\s*else/' => '} else',
+                    '/\}\s*(catch|else)/' => '} \\1',
                     '/(?<!:):([_a-zA-Z][\w-]+)/' => "'\\1'",
                   );
 
