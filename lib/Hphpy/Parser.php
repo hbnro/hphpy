@@ -9,20 +9,20 @@ class Parser
 
   private static $lambda = '\s*(?:\(([^()]*?)\))?\s*~>(.*)?';
   private static $ifthen = '\b(?:(?:else\s*?)?if|while|switch|for(?:each)?|catch)\b';
-  private static $block = '\b(?:else|trait|interface|[\s\w]*class|do|try|namespace)\b';
+  private static $block = '\b(?:else|trait|interface|[\s\w]*class|do|try|namespace|finally)\b';
   private static $isfn = '\b(?:[\s\w]*function)\b';
 
-  private static $esc = array(
-                    '/[\r\n]/' => "\n",
-                    "/\s*, *\n+\s*/" => ', ',
-                    "/\s*\\\\ *\n+\s*/" => ' ',
-                  );
+
 
   public static function parse($source)
   {
+    $source = \Hphpy\Helpers::prepare($source);
+    $source = \Hphpy\Helpers::extract($source, $tmp);
+
     $tokens = static::tree($source);
     $output = static::fix($tokens);
 
+    $output = \Hphpy\Helpers::restore($output, $tmp);
     $output = \Hphpy\Helpers::repare($output);
 
     return $output;
@@ -30,8 +30,6 @@ class Parser
 
   private static function tree($source)
   {
-    $source = preg_replace(array_keys(static::$esc), static::$esc, $source);
-
     if (preg_match('/^ +(?=\S)/m', $source, $match)) {
       static::$indent = strlen($match[0]);
     }
@@ -175,9 +173,18 @@ class Parser
 
           $out []= static::ln($value . $close, '', $indent);
         } else {
-          ($overwrite = static::lambda($key)) && $key = $overwrite;
+          if (substr($key, -2) === '=>') {
+            $value = array_map('trim', \Hphpy\Helpers::flatten($value));
+            $value = join(', ', array_filter($value, 'strlen'));
 
-          $out []= static::ln(preg_match('/#\d{1,7}/', $key) ? FALSE : $key, static::fix($value, $indent), $indent);
+            $key   = trim(substr($key, 0, -2));
+
+            $out []= "$key = [$value];";
+          } else {
+            ($overwrite = static::lambda($key)) && $key = $overwrite;
+
+            $out []= static::ln(preg_match('/#\d{1,7}/', $key) ? FALSE : $key, static::fix($value, $indent), $indent);
+          }
         }
       }
     }
