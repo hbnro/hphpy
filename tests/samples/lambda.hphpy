@@ -1,9 +1,10 @@
-<?php
 
 $baz = ($bar) ~> return $bar
 
 $buzz = ($candy) ~>
 
-  return $candy
+  $candy
 
-$foo = ~>
+return ~>
+
+  $buzz($baz('LOL'))

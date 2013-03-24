@@ -1,5 +1,7 @@
 <?php
 
+define('START', microtime(TRUE));
+
 require dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 
 if (! in_array('hphpy', stream_get_wrappers())) {
@@ -15,3 +17,5 @@ require 'hphpy://app/routes.hphpy';
 
 session_start();
 run();
+
+echo '<br>&mdash;', ticks();

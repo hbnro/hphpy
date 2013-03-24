@@ -1,8 +1,9 @@
-<?php
 
 namespace My
 
   class Thing
+
+  class Lolz
 
   class Other
 
@@ -10,7 +11,7 @@ namespace My
 
       return ~>
 
-        return 'Value'
+        'Value'
 
 
 namespace Sub

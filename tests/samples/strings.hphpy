@@ -1,0 +1,11 @@
+
+$foo = """long-\
+         unescaped \
+         <a href="{$that[:link]}">link</a> \
+             strings\
+       """
+
+echo '''\
+     looolz\
+     doh\
+     '''

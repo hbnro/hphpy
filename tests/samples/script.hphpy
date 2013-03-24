@@ -1,4 +1,3 @@
-<?php
 
 require 'hphpy/vendor/autoload.php'
 
@@ -6,12 +5,13 @@ if ! in_array('hphpy', stream_get_wrappers())
   stream_wrapper_register('hphpy', '\\Hphpy\\Module')
 
 
-foreach explode(' ', 'ns try class traits function lambda') as $one
-  require "hphpy://tests/samples/$one.hphpy"
+foreach explode(' ', 'ns try class traits function lambda arrays assigns comments constants return strings tree') as $one
+  $path = "hphpy://tests/samples/$one.hphpy"
+  require $path
 
 
 echo $baz(Test::items()[:symbol])
 
 echo $buzz(hello())
 
-var_dump($foo())
+var_dump($foo)

@@ -1,0 +1,14 @@
+
+foreach [:a => 'b'] as $k => $k
+  echo "$k=$v, "
+
+
+if true
+  echo 'ok'
+else
+  echo 'no'
+  $foo = 'bar'
+
+
+while false
+  echo 'oh'

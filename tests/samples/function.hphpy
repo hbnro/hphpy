@@ -1,5 +1,4 @@
-<?php
 
 function hello $world = 'HUH'
 
-  return $world
+  $world

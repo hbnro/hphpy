@@ -1,0 +1,13 @@
+
+$bar =>
+  'abc'
+  'def'
+
+
+$foo =>
+  :candy => 'bar'
+  :does => 'nothing:else'
+
+$foo =>
+
+  'candy' => 'bar'

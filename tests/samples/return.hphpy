@@ -1,0 +1,10 @@
+$bar = 'lol'
+$foo = ~>
+
+  if false
+    return true
+
+  $bar
+
+
+echo $foo()
