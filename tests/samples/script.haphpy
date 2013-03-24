@@ -1,0 +1,10 @@
+<?php
+
+class Test
+
+  static function items
+    return [:symbol => 'string',
+            'other' => 'value',
+            'so']
+
+echo Test::items()[:symbol]
