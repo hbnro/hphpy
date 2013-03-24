@@ -9,7 +9,7 @@ class Parser
 
   private static $lambda = '\s*(?:\(([^()]*?)\))?\s*~>(.*)?';
   private static $ifthen = '\b(?:(?:else\s*?)?if|while|switch|for(?:each)?|catch)\b';
-  private static $block = '\b(?:else|trait|interface|class|do|try|namespace)\b';
+  private static $block = '\b(?:else|trait|interface|[\s\w]*class|do|try|namespace)\b';
   private static $isfn = '\b(?:[\s\w]*function)\b';
 
   private static $esc = array(
@@ -94,9 +94,9 @@ class Parser
   {
     $out = array();
 
-    $isfn  = '/^\s*' . static::$isfn . '/';
-    $block  = '/^\s*' . static::$block . '/';
-    $ifthen  = '/^\s*' . static::$ifthen . '/';
+    $isfn  = '/^\s*' . static::$isfn . '/i';
+    $block  = '/^\s*' . static::$block . '/i';
+    $ifthen  = '/^\s*' . static::$ifthen . '/i';
 
 
     if ( ! is_scalar($value)) {
@@ -132,8 +132,8 @@ class Parser
   {
     $out = array();
 
-    $block  = '/^\s*(?:' . static::$ifthen . '|' . static::$block . '|' . static::$isfn . ')/';
-    $lambda = '/' . static::$lambda . '/';
+    $block  = '/^\s*(?:' . static::$ifthen . '|' . static::$block . '|' . static::$isfn . ')/i';
+    $lambda = '/' . static::$lambda . '/i';
 
 
     if ( ! is_scalar($value)) {
@@ -147,7 +147,7 @@ class Parser
 
       $close = str_repeat(')', $lft - $rgt);
 
-      return "}$close : false;";
+      return "} : false$close;";
     } elseif (preg_match($block, $value)) {
       return '}';
     }
