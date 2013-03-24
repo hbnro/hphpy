@@ -1,3 +1,4 @@
+<?php
 
 function cookie $item, $value = null
 

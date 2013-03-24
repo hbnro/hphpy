@@ -1,3 +1,4 @@
+<?php
 
 foreach [:a => 'b'] as $k => $k
   echo "$k=$v, "

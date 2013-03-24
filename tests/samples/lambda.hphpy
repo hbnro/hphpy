@@ -1,3 +1,4 @@
+<?php
 
 $baz = ($bar) ~> return $bar
 

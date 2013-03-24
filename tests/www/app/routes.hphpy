@@ -1,3 +1,4 @@
+<?php
 
 if array_key_exists('quit', $_GET)
 
