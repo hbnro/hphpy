@@ -151,7 +151,7 @@ class Parser
 
       $sub[$tree[-1]] = array_slice($tree, 1);
 
-      static::ret($sub[$tree[-1]]);
+      static::ret($sub, $tree[-1], $indent);
 
       if ($suffix = static::close($tree[-1])) {
         $sub[$tree[-1]] []= $span . $suffix;
@@ -203,19 +203,20 @@ class Parser
     return join("\n", $out);
   }
 
-  private static function ret(&$set, $indent = 0)
+  private static function ret(&$set, $item, $indent = 0)
   {
-    if (is_array(end($set))) {
+    if (is_array(end($set[$item]))) {
       return;
     }
 
-    $last = array_pop($set);
+    $last = array_pop($set[$item]);
+    $regex = '/' . static::$isfn . '|' . static::$lambda . '/';
 
-    if (preg_match('/^\s*[$\'"[:]/', $last)) {
+    if (preg_match($regex, $item) && preg_match('/^\s*[$\'"[:]/', $last)) {
       $last = static::span($indent + 1) . 'return ' . trim($last);
     }
 
-    $set []= $last;
+    $set[$item] []= $last;
   }
 
   private static function dict($key, array $value)
