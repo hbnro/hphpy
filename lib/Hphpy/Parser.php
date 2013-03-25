@@ -9,6 +9,7 @@ class Parser
 
   private static $lambda = '\s*(?:\(([^()]*?)\))?\s*~>(.*)?';
   private static $ifthen = '\b(?:(?:else\s*?)?if|while|switch|for(?:each)?|catch)\b';
+  private static $retval = '/\b(?:return|echo|break|continue|die|(?:require|include)(?:_once)?|exit|unset)\b/';
   private static $block = '\b(?:else|trait|interface|[\s\w]*class|do|try|namespace|finally)\b';
   private static $isfn = '\b(?:[\s\w]*function)\b';
 
@@ -212,7 +213,7 @@ class Parser
     $last = array_pop($set[$item]);
     $regex = '/' . static::$isfn . '|' . static::$lambda . '/';
 
-    if (preg_match($regex, $item) && ! preg_match('/\breturn\b/', $last)) {
+    if (preg_match($regex, $item) && ! preg_match(static::$retval, $last)) {
       $last = static::span($indent + 1) . 'return ' . trim($last);
     }
 
