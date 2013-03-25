@@ -212,7 +212,7 @@ class Parser
     $last = array_pop($set[$item]);
     $regex = '/' . static::$isfn . '|' . static::$lambda . '/';
 
-    if (preg_match($regex, $item) && preg_match('/^\s*[$\'"[:]/', $last)) {
+    if (preg_match($regex, $item) && ! preg_match('/\breturn\b/', $last)) {
       $last = static::span($indent + 1) . 'return ' . trim($last);
     }
 
