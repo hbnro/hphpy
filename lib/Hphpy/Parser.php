@@ -169,7 +169,7 @@ class Parser
           if (substr($value, -1) === '{') {
             $value = "$value }";
             $close = '';
-          } elseif (preg_match('/^\s*(?:\$[_a-zA-Z{$]|\w|\\\)/', $value)) {
+          } elseif (preg_match('/^\s*(?:\$[_a-zA-Z{$]|\w|\\\|\()/', $value)) {
             $close = ';';
           }
 
