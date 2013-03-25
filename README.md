@@ -3,7 +3,7 @@ Ready for happiness?
 
 Basically helps to transform this source code:
 
-![Hphpy source](http://i.imgur.com/KycUxEz.png)
+![Hphpy source](http://i.imgur.com/xH0loe4.png)
 
 to php code:
 
