@@ -247,7 +247,9 @@ class Parser
     if (preg_match($closure, $value, $test)) {
       @list($prefix, $suffix) = explode($test[0], $value);
 
-      $function  = "!! (\$__ = get_defined_vars()) | 1 ? function ($test[1]) use (\$__) {";
+      $import = preg_match('/^[\s\w$]+$/', $test[2]) ? strtr($test[2], array(' ' => '', '$' => ', &$')) : '';
+
+      $function  = "!! (\$__ = get_defined_vars()) | 1 ? function ($test[1]) use (\$__$import) {";
       $function .= " extract(\$__, EXTR_SKIP | EXTR_REFS); unset(\$__);";
 
       if ($inline) {
